@@ -442,8 +442,8 @@ def initialize_nested_objects(obj0,nobjs,data,nmax,rng,nsamples=64,dtype=np.floa
 
 def nested_sample_core(objs,args,nmax,rng,nsamples=64,n0=0,dtype=np.float64):
   """
-    Core method for performing nested sampling. For this method
-    the objects must already be created and initialized
+    Core method for performing nested sampling. For this method the objects must already be created and 
+    initialized. 
 
     Parameters:
     -----------
@@ -461,6 +461,14 @@ def nested_sample_core(objs,args,nmax,rng,nsamples=64,n0=0,dtype=np.float64):
     Returns:
     --------
       out: dict
+        logZ_mean: float
+          The mean of the log of the evidence over Monte-Carlo samples
+        logZ_std: float
+          The STD of the log of the evidence 
+        H_mean: float 
+          The Shannon information averaged over Monte-Carlo samples
+        H_std: float
+          The STD of the Shannon information over the Monte-Carlo samples
 
   """ 
 
