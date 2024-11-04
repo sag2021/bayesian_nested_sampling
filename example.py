@@ -45,12 +45,14 @@ from distros import log_lognormal_likelihood,uprior_uniform,uprior_jefferys
 def log_likelihood(x,mu,sigma):
   return log_lognormal_likelihood(x,mu,sigma)
 
+# Conversion to dB
+DB = 10./np.log(10.)
 
 # RNG
 rng = default_rng(2021)
 
-# Test data. 
-MU    = 1.
+# Test data population parameters
+MU    = 3.
 SIGMA = 1.
 N     = 128
 
@@ -84,9 +86,6 @@ model = model_uniform(2,log_likelihood,upriors,hyper,rng)
 
 # Perform nested sampling
 res = nested_samples(model,N_OBJECTS,data,4000,rng)
-
-# NAT
-DB = 10./np.log(10.)
 
 # Print 
 print("Population mean: {:g}".format(MU))
