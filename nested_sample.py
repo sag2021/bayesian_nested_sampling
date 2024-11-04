@@ -209,7 +209,6 @@ def sample_shrink_distro(n,size,rng):
     --------
       t: 
         Sample from distribution
-
   """
 
   # Uniform variates in the range [0,1)
@@ -304,12 +303,35 @@ def new_information(H_old,logWt_worst,logL_worst,logZ_old,logZ_new):
 
 def quatify(post_samples,logZ,name):
   """
-    Compute value of variable from posterior samples
+    Compute value of variable from posterior samples. 
 
     Based on Equation (38)-(41) of  
     Skilling, J.: 2006, "Nested sampling for general Bayesian computation", 
     Bayesian Analysis, 1, Number 4,p833
     DOI: 10.1214/06-BA127
+ 
+    Parameters:
+    -----------
+      post_samples:  
+        List of posterior samples
+      logZ: (n,)
+        Log of evidence for each sample
+      name: str
+        Name of parameter. At present, this should just be a number (as a string)
+
+    Returns:
+    --------
+      mu_Q: float
+        Mean of parameter over the posterior. This serves as an estimate
+        of the parameter. 
+      sigma_Q: float
+        STD of parameter over posterior. This measures the width of the posterior. 
+      mu_Q_err: float
+        Monte-Carlo error due to the shrink distro. Serves as an estimate of the 
+        numerical Monte-Carlo error. At minimum, this must be less than sigam_Q for the estimate
+        of mu_Q to be taken seriously 
+      mu_Q_err_std: 
+        Monte-Carlo error in sigma_Q 
 
   """
 
@@ -401,7 +423,7 @@ def nested_samples(obj0,nobjs,data,nmax,rng,nsamples=64,dtype=np.float64):
 
 def initialize_nested_objects(obj0,nobjs,data,nmax,rng,nsamples=64,dtype=np.float64):
   """
-    Initilized objectes based on an initial template
+    Initilize objects based on an initial template
   """
 
   objs = [obj0]
@@ -415,7 +437,7 @@ def initialize_nested_objects(obj0,nobjs,data,nmax,rng,nsamples=64,dtype=np.floa
     objs[i].prior(data)
 
   return objs
-
+  
 # ---------------------------------------------------------------------
 
 def nested_sample_core(objs,args,nmax,rng,nsamples=64,n0=0,dtype=np.float64):
@@ -489,7 +511,7 @@ def nested_sample_core(objs,args,nmax,rng,nsamples=64,n0=0,dtype=np.float64):
     else:
       logL[index_worst] = objs[index_worst].logL
   
-    # Find index with worst (smallest) liklihood
+    # Find index with worst (smallest) likelihood
     index_worst = np.argmin(logL)
  
     # Compute weight log(A) = log(h) + log(L)
