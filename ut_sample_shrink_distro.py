@@ -75,10 +75,4 @@ print ("Mean [ana]: ",-1./n     )
 print ("Std: [num]: ",log_t_std )
 print ("Std: [ana]: ",1./n )
 
-# Draw log-log histogram
-bins = np.logspace(log_t.min(),0,64)
-plt.hist(t,bins=bins,density=True)
-plt.xscale('log')
-plt.yscale('log')
-plt.show()
 print ("Done")
