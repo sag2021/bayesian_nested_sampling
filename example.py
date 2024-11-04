@@ -85,7 +85,7 @@ hyper   = ([-DELTA_MU,+DELTA_MU],[10.**-DELTA_SIG,10.**+DELTA_SIG])
 model = model_uniform(2,log_likelihood,upriors,hyper,rng)
 
 # Perform nested sampling
-res = nested_samples(model,N_OBJECTS,data,4000,rng)
+res = nested_samples(model,N_OBJECTS,data,N_SAMPLES,rng)
 
 # Print 
 print("Population mean: {:g}".format(MU))
